@@ -20,6 +20,27 @@ var budgetController = (function() {
         }
     };
 
+    return {
+        addItem : function(type,description,value){
+            var newItem,ID;
+            if(data.allItems[type].length > 0){
+                ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
+            } else {
+                ID = 0;
+            }
+            if(type === 'exp'){
+                newItem = new Expense(ID,description,value);
+            } else if(type === 'inc'){
+                newItem = new Income(ID,description,value);
+            }
+            data.allItems[type].push(newItem);
+            return newItem;
+        },
+        testing : function(){
+            console.log(data);
+        }
+    };
+    
 })();
 
 var UIcontroller = (function() {
@@ -48,15 +69,16 @@ var controller = (function(budgetCtlr,UICtrl){
     var setupEventListeners = function(){
         var DOM = UICtrl.getDOMStrings();
         document.querySelector(DOM.inputBtn).addEventListener('click',ctrlAddItem);
-    document.addEventListener('keypress',function(){
+        document.addEventListener('keypress',function(){
         if(event.keyCode === 13 || event.which === 13)
             ctrlAddItem();
     });
     }
     
     var ctrlAddItem = function(){
-        var input = UICtrl.getInput();
-        console.log(input);
+        var input,newItem;
+        input = UICtrl.getInput();
+        newItem = budgetCtlr.addItem(input.type,input.description,input.value);
     }
 
     return {

@@ -77,7 +77,7 @@ var UIcontroller = (function() {
             return {
                 type: document.querySelector(DOMStrings.inputType).value,
                 description: document.querySelector(DOMStrings.inputDescription).value,
-                value: document.querySelector(DOMStrings.inputValue).value
+                value: parseFloat(document.querySelector(DOMStrings.inputValue).value)
             };
         } ,
 
@@ -126,13 +126,21 @@ var controller = (function(budgetCtlr,UICtrl){
             ctrlAddItem();
     });
     }
+
+    var updateBudget = function(){
+        
+    }
     
     var ctrlAddItem = function(){
         var input,newItem;
         input = UICtrl.getInput();
-        newItem = budgetCtlr.addItem(input.type,input.description,input.value);
-        UICtrl.addListItem(newItem, input.type);
-        UICtrl.clearFields();
+
+        if(input.description !== "" && !isNaN(input.value) && input.value > 0 ){
+            newItem = budgetCtlr.addItem(input.type,input.description,input.value);
+            UICtrl.addListItem(newItem, input.type);
+            UICtrl.clearFields();
+            updateBudget();
+        }
     }
 
     return {

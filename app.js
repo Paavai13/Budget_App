@@ -48,6 +48,17 @@ var budgetController = (function() {
             return newItem;
         },
 
+        deleteItem: function(type, id){
+            var ids, index;
+            ids = data.allItems[type].map(function(current){
+                return current.id;
+            });
+            index = ids.indexOf(id);
+            if(index !== -1){
+                data.allItems[type].splice(index,1);
+            }
+        },
+
         calculateBudget : function(){
             calculateTotal('exp');
             calculateTotal('inc');
@@ -85,7 +96,8 @@ var UIcontroller = (function() {
         budgetLabel: '.budget__value',
         incomeLabel: '.budget__income--value',
         expensesLabel: '.budget__expenses--value',
-        percentageLabel: '.budget__expenses--percentage'
+        percentageLabel: '.budget__expenses--percentage',
+        container: '.container'
     };
 
     var formatNumber = function(num, type) {
@@ -168,15 +180,16 @@ var controller = (function(budgetCtrl,UICtrl){
         document.addEventListener('keypress',function(){
         if(event.keyCode === 13 || event.which === 13)
             ctrlAddItem();
+        document.querySelector(DOM.container).addEventListener('click',ctrlDeleteItem);
     });
-    }
+    };
 
     var updateBudget = function(){
         budgetCtrl.calculateBudget();
         var budget = budgetCtrl.getBudget();
         console.log(budget);
         UICtrl.displayBudget(budget);
-    }
+    };
     
     var ctrlAddItem = function(){
         var input,newItem;
@@ -187,6 +200,18 @@ var controller = (function(budgetCtrl,UICtrl){
             UICtrl.addListItem(newItem, input.type);
             UICtrl.clearFields();
             updateBudget();
+        }
+    };
+
+    var ctrlDeleteItem = function(event){
+        var itemID;
+        itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
+        if(itemID)
+        {
+            splitID = itemID.split('-');
+            type = splitID[0];
+            ID = parseInt(splitID[1]);
+            budgetCtrl.deleteItem(type , ID);
         }
     }
 

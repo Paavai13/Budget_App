@@ -27,7 +27,7 @@ body {
 
 .top {
     height: 40vh;
-    background-image: linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)), url(back.png);
+    background-image: linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)), url(back1.jpg);
     background-size: cover;
     background-position: center;
     position: relative;
@@ -37,7 +37,7 @@ body {
     position: absolute;
     width: 350px;
     top: 50%;
-    left: 50%;
+    left: 25%;
     transform: translate(-50%, -50%);
     color:#fff;
 }
@@ -192,8 +192,14 @@ h2 {
     margin-bottom: 15px;
 }
 
-.icome__title { color: #28B9B5; }
-.expenses__title { color: #FF5049;}
+.icome__title {
+    color: #28B9B5; 
+    text-align: center;
+}
+.expenses__title { 
+    color: #FF5049;
+    text-align: center;
+}
 
 .item {
     padding: 13px;

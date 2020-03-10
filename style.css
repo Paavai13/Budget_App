@@ -27,7 +27,7 @@ body {
 
 .top {
     height: 40vh;
-    background-image: linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)), url(back1.jpg);
+    background-image: linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)), url(back10.jpg);
     background-size: cover;
     background-position: center;
     position: relative;
@@ -37,7 +37,7 @@ body {
     position: absolute;
     width: 350px;
     top: 50%;
-    left: 25%;
+    left: 50%;
     transform: translate(-50%, -50%);
     color:#fff;
 }

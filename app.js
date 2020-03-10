@@ -147,6 +147,11 @@ var UIcontroller = (function() {
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
         },
 
+        deleteListItem: function(selectorID){
+            var el = document.getElementById(selectorID);
+            el.parentNode.removeChild(el);
+        },
+
         clearFields: function(){
             var fields,fieldArray;
             fields = document.querySelectorAll(DOMStrings.inputDescription + ',' + DOMStrings.inputValue);
@@ -154,6 +159,7 @@ var UIcontroller = (function() {
             fieldArray.forEach(function(current, index, fieldArray){
                 current.value = "";
             });
+            fieldArray[0].focus();
         },
 
         displayBudget: function(obj){
@@ -212,6 +218,8 @@ var controller = (function(budgetCtrl,UICtrl){
             type = splitID[0];
             ID = parseInt(splitID[1]);
             budgetCtrl.deleteItem(type , ID);
+            UICtrl.deleteListItem(itemID);
+            updateBudget();
         }
     }
 

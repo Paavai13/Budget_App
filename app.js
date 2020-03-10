@@ -83,7 +83,6 @@ var UIcontroller = (function() {
 
         addListItem: function(obj, type) {
             var html, newHtml, element;
-            // Create HTML string with placeholder text
             
             if (type === 'inc') {
                 element = DOMStrings.incomeContainer;
@@ -95,13 +94,20 @@ var UIcontroller = (function() {
                 html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             }
             
-            // Replace the placeholder text with some actual data
             newHtml = html.replace('%id%', obj.id);
             newHtml = newHtml.replace('%description%', obj.description);
             newHtml = newHtml.replace('%value%', formatNumber(obj.value, type));
             
-            // Insert the HTML into the DOM
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
+        },
+
+        clearFields: function(){
+            var fields,fieldArray;
+            fields = document.querySelectorAll(DOMStrings.inputDescription + ',' + DOMStrings.inputValue);
+            fieldArray = Array.prototype.slice.call(fields);
+            fieldArray.forEach(function(current, index, fieldArray){
+                current.value = "";
+            });
         },
 
         getDOMStrings: function(){
@@ -126,6 +132,7 @@ var controller = (function(budgetCtlr,UICtrl){
         input = UICtrl.getInput();
         newItem = budgetCtlr.addItem(input.type,input.description,input.value);
         UICtrl.addListItem(newItem, input.type);
+        UICtrl.clearFields();
     }
 
     return {
